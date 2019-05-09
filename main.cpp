@@ -1,89 +1,108 @@
 #include <iostream>
-#include <math.h>
+#include <string>
 using namespace std;
-class PhanSo{
+class account{
 private:
-    int TuSo, MauSo;
+    int acc_number;
+    string username;
+    string password;
+    double money;
 public:
-    PhanSo(int TuSo, int MauSo)
-    {
-        this->TuSo=TuSo;
-        this->MauSo=MauSo;
-    }
-    void Nhap();
-    void Xuat();
-    PhanSo RutGon();
-    PhanSo Cong(PhanSo);
-    PhanSo Tru(PhanSo);
-    PhanSo Nhan(PhanSo);
-    PhanSo Chia(PhanSo);
+    account();
+    account(int acc, string user, string pass, double mon);
+    //setters;
+    void setAcc(int);
+    void setUser(string);
+    void setPass(string);
+    void setMon(double);
+    //getters;
+    int getAcc()const;
+    string getUser()const;
+    string getPass()const;
+    double getMon()const;
+    //methods;
+    void New_acc();
+    void Add_money(float a);
+    void Minus_money(float a);
+    void Show_acc();
 };
-void PhanSo::Nhap()
+account::account()
 {
-    cout<<"\n Nhap tu so: ";
-    cin >> this->TuSo;
-    cout << "\n Nhap mau so: ";
-    cin >> this ->MauSo;
+    this -> acc_number = 0;
+    this -> username ="";
+    this -> password ="";
+    this -> money =0;
+}
+account::account(int acc, string user, string pass, double mon)
+{
+    this -> acc_number=acc;
+    this -> username=user;
+    this -> password=pass;
+    this -> money=mon;
+}
+void account::setAcc(int a)
+{
+    this ->acc_number=a;
+}
+void account::setUser(string b)
+{
+    this ->username=b;
+}
+void account::setPass(string c)
+{
+    this -> password=c;
+}
+void account::setMon(double d)
+{
+    this -> money=d;
+}
+int account::getAcc()const
+{
+    return this -> acc_number;
+}
+string account::getUser()const
+{
+    return this -> username;
+}
+string account::getPass()const
+{
+    return this -> password;
+}
+double account::getMon()const
+{
+    return this -> money;
+}
+//void account::New_acc()
 
-
-}
-PhanSo PhanSo::RutGon()
+void account::Add_money(float a)
 {
-    int T, M;
-    T = this->TuSo;
-    M = this->MauSo;
-    while (T!=M)
-    {
-        if(T>M)
-            T =T-M;
-        else
-            M =M-T;
-    }
-    this->TuSo = this->TuSo/T;
-    this->MauSo = this->MauSo/T;
-    return *this;
+    money+=a;
 }
-PhanSo PhanSo::Cong(PhanSo ps2)
+void account::Minus_money(float a)
 {
-    TuSo = TuSo*ps2.MauSo + MauSo*ps2.TuSo;
-    MauSo = MauSo* ps2.MauSo;
+    money-=a;
 }
-PhanSo PhanSo::Tru(PhanSo ps2)
+void account::Show_acc()
 {
-    TuSo = TuSo*ps2.MauSo - MauSo*ps2.TuSo;
-    MauSo = MauSo* ps2.MauSo;
-}
-PhanSo PhanSo::Nhan(PhanSo ps2)
-{
-    TuSo = TuSo* ps2.TuSo;
-    MauSo = MauSo* ps2.MauSo;
-
-}
-PhanSo PhanSo::Chia(PhanSo ps2)
-{
-
-    TuSo = TuSo* ps2.MauSo;
-    MauSo = MauSo* ps2.TuSo;
-
-}
-void PhanSo::Xuat()
-{
-    cout << this ->TuSo<< "/" <<this->MauSo;
+    cout<<"So tai khoan: "<<acc_number<<endl;
+	cout<<"Ten chu so huu: "<<username<<endl;
+	cout<<"So tien trong tai khoan: "<<money<<endl;
 }
 int main()
 {
-    PhanSo ps1(0,1);
-    int n;
-    cin >> n;
-    for (int i = 1; i<=n; i++)
-    {
-        PhanSo ps2(1,i);
-        ps1.Cong(ps2);
-        //ps.Tru(p);
-        //ps.Nhan(p);
-        //ps.Chia(p);
-        ps.RutGon();
-    }
-    ps1.Xuat();
+    account ACC;
+    ACC.setAcc(123456);
+    ACC.setUser("Nguyen Anh Quan");
+    ACC.setPass("abc");
+    cout<<ACC.getAcc()<<endl;
+    cout<<ACC.getUser()<<endl;
+    cout<<ACC.getPass()<<endl;
+    ACC.setMon(1.987);
+    ACC.Add_money(5.9);
+    cout<<ACC.getMon()<<endl;
+    ACC.Show_acc();
+
+
+
     return 0;
 }
