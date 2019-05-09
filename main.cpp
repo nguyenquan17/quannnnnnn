@@ -6,34 +6,29 @@ private:
     int acc_number;
     string username;
     string password;
-    double money;
+    float money;
 public:
     account();
-    account(int acc, string user, string pass, double mon);
+    account(int acc, string user, string pass, float mon);
     //setters;
     void setAcc(int);
     void setUser(string);
     void setPass(string);
-    void setMon(double);
+    void setMon(float);
     //getters;
     int getAcc()const;
     string getUser()const;
     string getPass()const;
-    double getMon()const;
+    float getMon()const;
     //methods;
     void New_acc();
     void Add_money(float a);
     void Minus_money(float a);
     void Show_acc();
 };
-account::account()
-{
-    this -> acc_number = 0;
-    this -> username ="";
-    this -> password ="";
-    this -> money =0;
-}
-account::account(int acc, string user, string pass, double mon)
+account::account():acc_number(0),username(""),password(""),money(0)
+{}
+account::account(int acc, string user, string pass, float mon)
 {
     this -> acc_number=acc;
     this -> username=user;
@@ -52,7 +47,7 @@ void account::setPass(string c)
 {
     this -> password=c;
 }
-void account::setMon(double d)
+void account::setMon(float d)
 {
     this -> money=d;
 }
@@ -68,7 +63,7 @@ string account::getPass()const
 {
     return this -> password;
 }
-double account::getMon()const
+float account::getMon()const
 {
     return this -> money;
 }
@@ -101,8 +96,5 @@ int main()
     ACC.Add_money(5.9);
     cout<<ACC.getMon()<<endl;
     ACC.Show_acc();
-
-
-
     return 0;
 }
