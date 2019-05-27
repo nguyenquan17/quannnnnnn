@@ -1,100 +1,89 @@
 #include <iostream>
-#include <string>
 using namespace std;
-class account{
+class Sp{
 private:
-    int acc_number;
-    string username;
-    string password;
-    float money;
+    double thuc;
+    double ao;
 public:
-    account();
-    account(int acc, string user, string pass, float mon);
-    //setters;
-    void setAcc(int);
-    void setUser(string);
-    void setPass(string);
-    void setMon(float);
-    //getters;
-    int getAcc()const;
-    string getUser()const;
-    string getPass()const;
-    float getMon()const;
-    //methods;
-    void New_acc();
-    void Add_money(float a);
-    void Minus_money(float a);
-    void Show_acc();
-};
-account::account():acc_number(0),username(""),password(""),money(0)
-{}
-account::account(int acc, string user, string pass, float mon)
-{
-    this -> acc_number=acc;
-    this -> username=user;
-    this -> password=pass;
-    this -> money=mon;
-}
-void account::setAcc(int a)
-{
-    this ->acc_number=a;
-}
-void account::setUser(string b)
-{
-    this ->username=b;
-}
-void account::setPass(string c)
-{
-    this -> password=c;
-}
-void account::setMon(float d)
-{
-    this -> money=d;
-}
-int account::getAcc()const
-{
-    return this -> acc_number;
-}
-string account::getUser()const
-{
-    return this -> username;
-}
-string account::getPass()const
-{
-    return this -> password;
-}
-float account::getMon()const
-{
-    return this -> money;
-}
-//void account::New_acc()
+    Sp();
+    Sp(double,double);
+    void setThuc(double);
+    void setAo(double);
+    double getThuc()const;
+    double getAo()const;
+    Sp operator+(const Sp &);
+    Sp operator-(const Sp &);
+    Sp operator*(const Sp &);
+    Sp operator/(const Sp &);
 
-void account::Add_money(float a)
+    friend ostream &operator<<(ostream&, Sp);
+};
+Sp::Sp()
+{}
+Sp::Sp(double t, double a)
 {
-    money+=a;
+    this -> thuc = t;
+    this -> ao = a;
 }
-void account::Minus_money(float a)
+void Sp::setThuc(double thuc)
 {
-    money-=a;
+    this -> thuc = thuc;
 }
-void account::Show_acc()
+void Sp::setAo(double ao)
 {
-    cout<<"So tai khoan: "<<acc_number<<endl;
-	cout<<"Ten chu so huu: "<<username<<endl;
-	cout<<"So tien trong tai khoan: "<<money<<endl;
+    this -> ao = ao;
+}
+double Sp::getThuc()const
+{
+    return this -> thuc;
+}
+double Sp::getAo()const
+{
+    return this -> ao;
+}
+Sp Sp:: operator+(const Sp &a)
+{
+    Sp sp;
+    sp.thuc = thuc + a.thuc;
+    sp.ao = ao + a.ao;
+    return sp;
+}
+Sp Sp:: operator-(const Sp &a)
+{
+    Sp sp;
+    sp.thuc = thuc - a.thuc;
+    sp.ao = ao - a.ao;
+    return sp;
+}
+Sp Sp:: operator*(const Sp &a)
+{
+    Sp sp;
+    sp.thuc= thuc*a.thuc - ao*a.ao;
+	sp.ao=thuc*a.ao + a.thuc*ao;
+	return sp;
+}
+Sp Sp:: operator/(const Sp &a)
+{
+    Sp sp;
+    int bp;
+	bp=a.thuc*a.thuc+a.ao*a.ao;
+	sp.thuc=(thuc*a.thuc+ao*a.ao)/bp;
+	sp.ao=(ao*a.thuc-thuc*a.ao)/bp;
+	return sp;
+}
+
+ostream &operator<<(ostream &out, Sp sp)
+{
+    return out << sp.thuc <<"+"<< sp.ao<<"i";
 }
 int main()
 {
-    account ACC;
-    ACC.setAcc(123456);
-    ACC.setUser("Nguyen Anh Quan");
-    ACC.setPass("abc");
-    cout<<ACC.getAcc()<<endl;
-    cout<<ACC.getUser()<<endl;
-    cout<<ACC.getPass()<<endl;
-    ACC.setMon(1.987);
-    ACC.Add_money(5.9);
-    cout<<ACC.getMon()<<endl;
-    ACC.Show_acc();
-    return 0;
+    Sp z1(2,3), z2(3,-6), z;
+    //z = z1+z2;
+    //z = z1-z2;
+    z = z1*z2;
+    //z = z1/z2;
+    cout << z;
+    return 0; 
+
 }
